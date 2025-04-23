@@ -1,0 +1,357 @@
+.talleres-container {
+    padding: 20px;
+  }
+  
+  .talleres-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .talleres-header h1 {
+    margin: 0;
+    color: #2c3e50;
+  }
+  
+  .search-bar {
+    position: relative;
+    width: 300px;
+  }
+  
+  .search-bar input {
+    padding-left: 35px;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7f8c8d;
+  }
+  
+  .talleres-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+  }
+  
+  .taller-card-large {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .taller-card-large:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .taller-image-large {
+    height: 140px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  .taller-overlay-large {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 15px;
+  }
+  
+  .taller-overlay-large span {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  
+  .taller-info-large {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .taller-info-large h3 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+  }
+  
+  .taller-description {
+    margin: 0 0 15px 0;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .taller-details {
+    margin: 15px 0;
+  }
+  
+  .taller-detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+  }
+  
+  .taller-detail i {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+    color: #3498db;
+  }
+  
+  .taller-btn {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 50px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .no-results-icon {
+    font-size: 3rem;
+    color: #bdc3c7;
+    margin-bottom: 20px;
+  }
+  
+  .no-results p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+  }
+  
+  /* Inventario de Taller */
+  .inventario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .inventario-title {
+    display: flex;
+    align-items: center;
+  }
+  
+  .inventario-title h1 {
+    margin: 0;
+    color: #2c3e50;
+  }
+  
+  .inventario-back {
+    display: flex;
+    align-items: center;
+    color: #3498db;
+    margin-right: 15px;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .inventario-back i {
+    margin-right: 5px;
+  }
+  
+  .inventario-tools {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .inventario-info {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .inventario-detail {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #7f8c8d;
+  }
+  
+  .inventario-detail i {
+    margin-right: 8px;
+    color: #3498db;
+  }
+  
+  .filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .filter-label {
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .filter-select {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background-color: white;
+  }
+  
+  .articulos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .articulo-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .articulo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .articulo-image {
+    height: 150px;
+    background-color: #ecf0f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .articulo-icon {
+    font-size: 3rem;
+    color: #7f8c8d;
+  }
+  
+  .articulo-content {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .articulo-title {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+  }
+  
+  .articulo-description {
+    margin: 0 0 15px 0;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    flex: 1;
+  }
+  
+  .articulo-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
+  
+  .articulo-category {
+    background-color: #e9f7fe;
+    color: #3498db;
+    border-radius: 12px;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  
+  .articulo-status {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  
+  .articulo-disponible {
+    color: #2ecc71;
+  }
+  
+  .articulo-no-disponible {
+    color: #e74c3c;
+  }
+  
+  @media (max-width: 768px) {
+    .talleres-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    .search-bar {
+      width: 100%;
+    }
+    
+    .talleres-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .inventario-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    .inventario-tools {
+      width: 100%;
+      justify-content: space-between;
+    }
+    
+    .inventario-info {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .filter-bar {
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .filter-group {
+      width: 100%;
+      justify-content: space-between;
+    }
+    
+    .articulos-grid {
+      grid-template-columns: 1fr;
+    }
+  }
