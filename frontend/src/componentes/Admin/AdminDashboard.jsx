@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../Common/Modal';
 import './AdminDashboard.css';
+import '../../global.css'
 
 const AdminDashboard = ({ usuario }) => {
   const [users, setUsers] = useState([]);
@@ -16,15 +17,17 @@ const AdminDashboard = ({ usuario }) => {
     email: '',
     rol: 'estudiante',
     password: '',
-    curso: '',        // Campo adicional para estudiantes
-    numero: '',       // Campo adicional para estudiantes
+    curso: '',
+    numero: '',
+    isActive: true,
   });
   const [workshopForm, setWorkshopForm] = useState({
     nombre: '',
     descripcion: '',
     ubicacion: '',
     horario: '',
-    encargados: [], // Array of teacher objects { id, nombre }
+    encargados: [],
+    isActive: true,
   });
   const [workshopFormError, setWorkshopFormError] = useState('');
 
@@ -33,19 +36,18 @@ const AdminDashboard = ({ usuario }) => {
       return;
     }
 
-    // Simulate API data fetch with varied example users
     setTimeout(() => {
       const usersData = [
-        { id: 1, nombre: 'Admin Principal', email: 'admin@escuela.edu', rol: 'admin' },
-        { id: 2, nombre: 'Profesor Juan Pérez', email: 'juan.perez@escuela.edu', rol: 'maestro' },
-        { id: 3, nombre: 'Profesora Ana Gómez', email: 'ana.gomez@escuela.edu', rol: 'maestro' },
-        { id: 4, nombre: 'Profesor Miguel Sánchez', email: 'miguel.sanchez@escuela.edu', rol: 'maestro' },
-        { id: 5, nombre: 'Profesora Laura Torres', email: 'laura.torres@escuela.edu', rol: 'maestro' },
-        { id: 6, nombre: 'Estudiante María López', email: 'maria.lopez@escuela.edu', rol: 'estudiante', curso: '3º Semestre', numero: '2023-0123' },
-        { id: 7, nombre: 'Estudiante Carlos Ramírez', email: 'carlos.ramirez@escuela.edu', rol: 'estudiante', curso: '5º Semestre', numero: '2021-0456' },
-        { id: 8, nombre: 'Estudiante Andrea Vargas', email: 'andrea.vargas@escuela.edu', rol: 'estudiante', curso: '1º Semestre', numero: '2024-0789' },
-        { id: 9, nombre: 'Estudiante Roberto Méndez', email: 'roberto.mendez@escuela.edu', rol: 'estudiante', curso: '7º Semestre', numero: '2020-0321' },
-        { id: 10, nombre: 'Estudiante Elena Castro', email: 'elena.castro@escuela.edu', rol: 'estudiante', curso: '3º Semestre', numero: '2023-0654' },
+        { id: 1, nombre: 'Admin Principal', email: 'admin@escuela.edu', rol: 'admin', isActive: true },
+        { id: 2, nombre: 'Profesor Juan Pérez', email: 'juan.perez@escuela.edu', rol: 'maestro', isActive: true },
+        { id: 3, nombre: 'Profesora Ana Gómez', email: 'ana.gomez@escuela.edu', rol: 'maestro', isActive: true },
+        { id: 4, nombre: 'Profesor Miguel Sánchez', email: 'miguel.sanchez@escuela.edu', rol: 'maestro', isActive: true },
+        { id: 5, nombre: 'Profesora Laura Torres', email: 'laura.torres@escuela.edu', rol: 'maestro', isActive: true },
+        { id: 6, nombre: 'Estudiante María López', email: 'maria.lopez@escuela.edu', rol: 'estudiante', curso: '3º Semestre', numero: '2023-0123', isActive: true },
+        { id: 7, nombre: 'Estudiante Carlos Ramírez', email: 'carlos.ramirez@escuela.edu', rol: 'estudiante', curso: '5º Semestre', numero: '2021-0456', isActive: true },
+        { id: 8, nombre: 'Estudiante Andrea Vargas', email: 'andrea.vargas@escuela.edu', rol: 'estudiante', curso: '1º Semestre', numero: '2024-0789', isActive: true },
+        { id: 9, nombre: 'Estudiante Roberto Méndez', email: 'roberto.mendez@escuela.edu', rol: 'estudiante', curso: '7º Semestre', numero: '2020-0321', isActive: true },
+        { id: 10, nombre: 'Estudiante Elena Castro', email: 'elena.castro@escuela.edu', rol: 'estudiante', curso: '3º Semestre', numero: '2023-0654', isActive: true },
       ];
 
       const workshopsData = [
@@ -59,6 +61,7 @@ const AdminDashboard = ({ usuario }) => {
             { id: 2, nombre: 'Profesor Juan Pérez' },
             { id: 3, nombre: 'Profesora Ana Gómez' },
           ],
+          isActive: true,
         },
         {
           id: 2,
@@ -67,6 +70,7 @@ const AdminDashboard = ({ usuario }) => {
           ubicacion: 'Edificio B, Aula 203',
           horario: 'Martes y Jueves 14:00 - 17:00',
           encargados: [{ id: 3, nombre: 'Profesora Ana Gómez' }],
+          isActive: true,
         },
         {
           id: 3,
@@ -75,6 +79,7 @@ const AdminDashboard = ({ usuario }) => {
           ubicacion: 'Edificio C, Aula 105',
           horario: 'Lunes, Miércoles y Viernes 9:00 - 13:00',
           encargados: [{ id: 4, nombre: 'Profesor Miguel Sánchez' }],
+          isActive: true,
         },
         {
           id: 4,
@@ -86,6 +91,7 @@ const AdminDashboard = ({ usuario }) => {
             { id: 2, nombre: 'Profesor Juan Pérez' },
             { id: 5, nombre: 'Profesora Laura Torres' },
           ],
+          isActive: true,
         },
       ];
 
@@ -97,15 +103,14 @@ const AdminDashboard = ({ usuario }) => {
 
   // User form handlers
   const handleUserFormChange = (e) => {
-    const { name, value } = e.target;
-    setUserForm({ ...userForm, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setUserForm({ ...userForm, [name]: type === 'checkbox' ? checked : value });
   };
 
   const handleUserFormSubmit = (e) => {
     e.preventDefault();
     const userData = { ...userForm };
-    
-    // Si no es estudiante, eliminamos los campos específicos de estudiantes
+
     if (userData.rol !== 'estudiante') {
       delete userData.curso;
       delete userData.numero;
@@ -126,25 +131,26 @@ const AdminDashboard = ({ usuario }) => {
       alert('Usuario actualizado correctamente');
     }
     setShowUserModal(false);
-    setUserForm({ nombre: '', email: '', rol: 'estudiante', password: '', curso: '', numero: '' });
+    setUserForm({ nombre: '', email: '', rol: 'estudiante', password: '', curso: '', numero: '', isActive: true });
   };
 
   const handleAddUserClick = () => {
     setModalMode('add');
-    setUserForm({ nombre: '', email: '', rol: 'estudiante', password: '', curso: '', numero: '' });
+    setUserForm({ nombre: '', email: '', rol: 'estudiante', password: '', curso: '', numero: '', isActive: true });
     setShowUserModal(true);
   };
 
   const handleEditUserClick = (user) => {
     setModalMode('edit');
     setSelectedUser(user);
-    setUserForm({ 
-      nombre: user.nombre, 
-      email: user.email, 
-      rol: user.rol, 
+    setUserForm({
+      nombre: user.nombre,
+      email: user.email,
+      rol: user.rol,
       password: '',
-      curso: user.curso || '', 
-      numero: user.numero || '' 
+      curso: user.curso || '',
+      numero: user.numero || '',
+      isActive: user.isActive,
     });
     setShowUserModal(true);
   };
@@ -156,10 +162,21 @@ const AdminDashboard = ({ usuario }) => {
     }
   };
 
+  const handleToggleUserActive = (userId) => {
+    const user = users.find((u) => u.id === userId);
+    if (window.confirm(`¿Estás seguro de que deseas ${user.isActive ? 'inactivar' : 'activar'} a ${user.nombre}?`)) {
+      const updatedUsers = users.map((u) =>
+        u.id === userId ? { ...u, isActive: !u.isActive } : u
+      );
+      setUsers(updatedUsers);
+      alert(`Usuario ${user.isActive ? 'inactivado' : 'activado'} correctamente`);
+    }
+  };
+
   // Workshop form handlers
   const handleWorkshopFormChange = (e) => {
-    const { name, value } = e.target;
-    setWorkshopForm({ ...workshopForm, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setWorkshopForm({ ...workshopForm, [name]: type === 'checkbox' ? checked : value });
     setWorkshopFormError('');
   };
 
@@ -194,13 +211,13 @@ const AdminDashboard = ({ usuario }) => {
       alert('Taller actualizado correctamente');
     }
     setShowWorkshopModal(false);
-    setWorkshopForm({ nombre: '', descripcion: '', ubicacion: '', horario: '', encargados: [] });
+    setWorkshopForm({ nombre: '', descripcion: '', ubicacion: '', horario: '', encargados: [], isActive: true });
     setWorkshopFormError('');
   };
 
   const handleAddWorkshopClick = () => {
     setModalMode('add');
-    setWorkshopForm({ nombre: '', descripcion: '', ubicacion: '', horario: '', encargados: [] });
+    setWorkshopForm({ nombre: '', descripcion: '', ubicacion: '', horario: '', encargados: [], isActive: true });
     setShowWorkshopModal(true);
     setWorkshopFormError('');
   };
@@ -214,6 +231,7 @@ const AdminDashboard = ({ usuario }) => {
       ubicacion: workshop.ubicacion,
       horario: workshop.horario,
       encargados: workshop.encargados,
+      isActive: workshop.isActive,
     });
     setShowWorkshopModal(true);
     setWorkshopFormError('');
@@ -223,6 +241,17 @@ const AdminDashboard = ({ usuario }) => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este taller?')) {
       setWorkshops(workshops.filter((w) => w.id !== workshopId));
       alert('Taller eliminado correctamente');
+    }
+  };
+
+  const handleToggleWorkshopActive = (workshopId) => {
+    const workshop = workshops.find((w) => w.id === workshopId);
+    if (window.confirm(`¿Estás seguro de que deseas ${workshop.isActive ? 'inactivar' : 'activar'} el taller ${workshop.nombre}?`)) {
+      const updatedWorkshops = workshops.map((w) =>
+        w.id === workshopId ? { ...w, isActive: !w.isActive } : w
+      );
+      setWorkshops(updatedWorkshops);
+      alert(`Taller ${workshop.isActive ? 'inactivado' : 'activado'} correctamente`);
     }
   };
 
@@ -254,27 +283,42 @@ const AdminDashboard = ({ usuario }) => {
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Rol</th>
-                    {/* Columnas adicionales para estudiantes */}
                     <th>Curso</th>
                     <th>Número</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   {users.map((user) => (
-                    <tr key={user.id}>
+                    <tr key={user.id} className={!user.isActive ? 'inactive-row' : ''}>
                       <td>{user.nombre}</td>
                       <td>{user.email}</td>
                       <td>{user.rol.charAt(0).toUpperCase() + user.rol.slice(1)}</td>
-                      {/* Datos adicionales para estudiantes */}
                       <td>{user.rol === 'estudiante' ? user.curso : '-'}</td>
                       <td>{user.rol === 'estudiante' ? user.numero : '-'}</td>
+                      <td>{user.isActive ? 'Activo' : 'Inactivo'}</td>
                       <td className="actions-cell">
-                        <button className="btn-icon" onClick={() => handleEditUserClick(user)}>
+                        <button
+                          className="btn-icon edit"
+                          onClick={() => handleEditUserClick(user)}
+                          title="Editar"
+                        >
                           <i className="fas fa-edit"></i>
                         </button>
-                        <button className="btn-icon delete" onClick={() => handleDeleteUserClick(user.id)}>
+                        <button
+                          className="btn-icon delete"
+                          onClick={() => handleDeleteUserClick(user.id)}
+                          title="Eliminar"
+                        >
                           <i className="fas fa-trash-alt"></i>
+                        </button>
+                        <button
+                          className="btn-icon toggle"
+                          onClick={() => handleToggleUserActive(user.id)}
+                          title={user.isActive ? 'Inactivar' : 'Activar'}
+                        >
+                          <i className={user.isActive ? 'fas fa-toggle-on' : 'fas fa-toggle-off'}></i>
                         </button>
                       </td>
                     </tr>
@@ -299,22 +343,39 @@ const AdminDashboard = ({ usuario }) => {
                     <th>Ubicación</th>
                     <th>Horario</th>
                     <th>Encargados</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   {workshops.map((workshop) => (
-                    <tr key={workshop.id}>
+                    <tr key={workshop.id} className={!workshop.isActive ? 'inactive-row' : ''}>
                       <td>{workshop.nombre}</td>
                       <td>{workshop.ubicacion}</td>
                       <td>{workshop.horario}</td>
                       <td>{workshop.encargados.map((e) => e.nombre).join(', ')}</td>
+                      <td>{workshop.isActive ? 'Activo' : 'Inactivo'}</td>
                       <td className="actions-cell">
-                        <button className="btn-icon" onClick={() => handleEditWorkshopClick(workshop)}>
+                        <button
+                          className="btn-icon edit"
+                          onClick={() => handleEditWorkshopClick(workshop)}
+                          title="Editar"
+                        >
                           <i className="fas fa-edit"></i>
                         </button>
-                        <button className="btn-icon delete" onClick={() => handleDeleteWorkshopClick(workshop.id)}>
+                        <button
+                          className="btn-icon delete"
+                          onClick={() => handleDeleteWorkshopClick(workshop.id)}
+                          title="Eliminar"
+                        >
                           <i className="fas fa-trash-alt"></i>
+                        </button>
+                        <button
+                          className="btn-icon toggle"
+                          onClick={() => handleToggleWorkshopActive(workshop.id)}
+                          title={workshop.isActive ? 'Inactivar' : 'Activar'}
+                        >
+                          <i className={workshop.isActive ? 'fas fa-toggle-on' : 'fas fa-toggle-off'}></i>
                         </button>
                       </td>
                     </tr>
@@ -381,8 +442,6 @@ const AdminDashboard = ({ usuario }) => {
                 required={modalMode === 'add'}
               />
             </div>
-
-            {/* Campos adicionales solo para estudiantes */}
             {userForm.rol === 'estudiante' && (
               <>
                 <div className="form-group">
@@ -411,7 +470,17 @@ const AdminDashboard = ({ usuario }) => {
                 </div>
               </>
             )}
-
+            <div className="form-group">
+              <label className="form-label">
+                <input
+                  type="checkbox"
+                  name="isActive"
+                  checked={userForm.isActive}
+                  onChange={handleUserFormChange}
+                />
+                &nbsp;Usuario Activo
+              </label>
+            </div>
             <div className="modal-buttons">
               <button type="button" className="btn btn-outline" onClick={() => setShowUserModal(false)}>
                 Cancelar
@@ -495,6 +564,17 @@ const AdminDashboard = ({ usuario }) => {
                   ))}
               </select>
               <small>Usa Ctrl/Cmd para seleccionar múltiples encargados</small>
+            </div>
+            <div className="form-group">
+              <label className="form-label">
+                <input
+                  type="checkbox"
+                  name="isActive"
+                  checked={workshopForm.isActive}
+                  onChange={handleWorkshopFormChange}
+                />
+                &nbsp;Taller Activo
+              </label>
             </div>
             <div className="modal-buttons">
               <button type="button" className="btn btn-outline" onClick={() => setShowWorkshopModal(false)}>

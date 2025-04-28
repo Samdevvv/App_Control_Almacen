@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Modal from '../Common/Modal';
+import '../../global.css'
 
 const DetalleArticulo = ({ usuario }) => {
   const { id } = useParams();

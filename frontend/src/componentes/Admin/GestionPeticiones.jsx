@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from '../Common/Modal';
 import './Admin.css';
+import '../../global.css'
 
 const GestionPeticiones = ({ usuario }) => {
   const [peticiones, setPeticiones] = useState([]);

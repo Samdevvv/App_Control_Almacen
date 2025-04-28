@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
@@ -7,8 +7,38 @@ const Navbar = ({ usuario, onLogout }) => {
   const [unreadNotifications, setUnreadNotifications] = useState(0);
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const notificationsPanelRef = useRef(null);
+  const notificationButtonRef = useRef(null);
 
-  // Simulate incoming notifications for demonstration (admin notifications are unrelated to requests)
+  // Detectar cambios en el tamaño de la ventana
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Cerrar panel de notificaciones al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        showNotifications &&
+        notificationsPanelRef.current &&
+        !notificationsPanelRef.current.contains(event.target) &&
+        !notificationButtonRef.current.contains(event.target)
+      ) {
+        setShowNotifications(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showNotifications]);
+
+  // Simulación de notificaciones
   useEffect(() => {
     const demoNotifications = [
       {
@@ -36,25 +66,11 @@ const Navbar = ({ usuario, onLogout }) => {
 
     setNotifications(demoNotifications);
     setUnreadNotifications(demoNotifications.filter((n) => !n.read).length);
-
-    const timer = setTimeout(() => {
-      const newNotification = {
-        id: 4,
-        message: 'Nuevo taller creado: Taller de Robótica',
-        timestamp: new Date().toISOString(),
-        read: false,
-        type: 'info',
-      };
-
-      setNotifications((prev) => [newNotification, ...prev]);
-      setUnreadNotifications((prev) => prev + 1);
-    }, 15000);
-
-    return () => clearTimeout(timer);
   }, []);
 
-  // Toggle notifications panel and mark notifications as read
-  const handleNotificationClick = () => {
+  // Manejar clic en notificaciones
+  const handleNotificationClick = (e) => {
+    e.stopPropagation();
     setShowNotifications(!showNotifications);
 
     if (!showNotifications) {
@@ -63,38 +79,39 @@ const Navbar = ({ usuario, onLogout }) => {
     }
   };
 
-  // Close notifications panel
-  const handleCloseNotifications = () => {
+  // Cerrar panel de notificaciones
+  const handleCloseNotifications = (e) => {
+    e.stopPropagation();
     setShowNotifications(false);
   };
 
-  // Format timestamp for display
+  // Formatear timestamp
   const formatTime = (timestamp) => {
     const date = new Date(timestamp);
     return date.toLocaleString();
   };
 
-  // Render navigation links based on user role
+  // Renderizar links de navegación según rol de usuario
   const renderNavLinks = () => {
-    // Common links for all users (excluding Mis Peticiones for admins)
+    // Links comunes
     const commonLinks = [
       { to: '/dashboard', label: 'Inicio', icon: 'fas fa-home' },
       { to: '/talleres', label: 'Talleres', icon: 'fas fa-tools' },
     ];
 
-    // Additional links for non-admin users (students and teachers)
+    // Links para no-admin
     const nonAdminLinks = [
       { to: '/mis-peticiones', label: 'Mis Peticiones', icon: 'fas fa-clipboard-list' },
     ];
 
+    // Links para maestros
     const teacherLinks = [
       { to: '/admin/taller', label: 'Mi Taller', icon: 'fas fa-warehouse' },
       { to: '/admin/articulos', label: 'Gestionar Artículos', icon: 'fas fa-boxes' },
       { to: '/admin/peticiones', label: 'Peticiones Recibidas', icon: 'fas fa-inbox' },
     ];
 
-    // Modificamos las rutas del administrador para evitar el error 404
-    // Usamos el dashboard para acceder a las funciones de administración
+    // Links para admin
     const adminLinks = [
       { to: '/dashboard', label: 'Panel Admin', icon: 'fas fa-cog' },
     ];
@@ -103,7 +120,7 @@ const Navbar = ({ usuario, onLogout }) => {
       <>
         {commonLinks.map((link) => (
           <li key={link.to} className={location.pathname === link.to ? 'active' : ''}>
-            <Link to={link.to}>
+            <Link to={link.to} title={isMobile ? link.label : ''}>
               <i className={link.icon}></i>
               <span>{link.label}</span>
             </Link>
@@ -114,7 +131,7 @@ const Navbar = ({ usuario, onLogout }) => {
           <>
             {nonAdminLinks.map((link) => (
               <li key={link.to} className={location.pathname === link.to ? 'active' : ''}>
-                <Link to={link.to}>
+                <Link to={link.to} title={isMobile ? link.label : ''}>
                   <i className={link.icon}></i>
                   <span>{link.label}</span>
                 </Link>
@@ -128,7 +145,7 @@ const Navbar = ({ usuario, onLogout }) => {
             <li className="nav-divider">Administración</li>
             {teacherLinks.map((link) => (
               <li key={link.to} className={location.pathname === link.to ? 'active' : ''}>
-                <Link to={link.to}>
+                <Link to={link.to} title={isMobile ? link.label : ''}>
                   <i className={link.icon}></i>
                   <span>{link.label}</span>
                 </Link>
@@ -142,7 +159,7 @@ const Navbar = ({ usuario, onLogout }) => {
             <li className="nav-divider">Admin</li>
             {adminLinks.map((link) => (
               <li key={link.to} className={location.pathname === link.to ? 'active' : ''}>
-                <Link to={link.to}>
+                <Link to={link.to} title={isMobile ? link.label : ''}>
                   <i className={link.icon}></i>
                   <span>{link.label}</span>
                 </Link>
@@ -161,7 +178,9 @@ const Navbar = ({ usuario, onLogout }) => {
       </div>
 
       <div className="user-info">
-        <div className="user-avatar">{usuario && usuario.nombre.charAt(0).toUpperCase()}</div>
+        <div className="user-avatar" title={isMobile ? usuario.nombre : ''}>
+          {usuario && usuario.nombre.charAt(0).toUpperCase()}
+        </div>
         <div className="user-details">
           <h4>{usuario.nombre}</h4>
           <span
@@ -186,12 +205,14 @@ const Navbar = ({ usuario, onLogout }) => {
             className="notification-badge"
             data-count={unreadNotifications > 0 ? unreadNotifications : ''}
             onClick={handleNotificationClick}
+            ref={notificationButtonRef}
+            title={isMobile ? 'Notificaciones' : ''}
           >
             <i className="fas fa-bell"></i>
           </button>
 
           {showNotifications && (
-            <div className="notifications-panel">
+            <div className="notifications-panel" ref={notificationsPanelRef}>
               <div className="notifications-header">
                 <h4>Notificaciones</h4>
                 <button className="close-notifications" onClick={handleCloseNotifications}>
@@ -220,7 +241,7 @@ const Navbar = ({ usuario, onLogout }) => {
           )}
         </div>
 
-        <button className="logout-btn" onClick={onLogout}>
+        <button className="logout-btn" onClick={onLogout} title={isMobile ? 'Cerrar sesión' : ''}>
           <i className="fas fa-sign-out-alt"></i>
           <span>Cerrar sesión</span>
         </button>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 
@@ -16,10 +17,23 @@ import GestionPeticiones from './componentes/Admin/GestionPeticiones';
 import NotFound from './componentes/Common/NotFound';
 import AdminDashboard from './componentes/Admin/AdminDashboard';
 
-
-
 function App() {
   const [usuario, setUsuario] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  
+  // Detectar cambios en el tamaño de la ventana
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Limpiar el evento al desmontar
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   
   // Verificar si el usuario está autenticado
   const isAuthenticated = !!usuario;
@@ -59,7 +73,7 @@ function App() {
   return (
     <Router>
       <div className={`app-container ${!isAuthenticated ? 'no-sidebar' : ''}`}>
-        {isAuthenticated && <Navbar usuario={usuario} onLogout={handleLogout} />}
+        {isAuthenticated && <Navbar usuario={usuario} onLogout={handleLogout} windowWidth={windowWidth} />}
         <div className="content-container">
           <Routes>
             <Route path="/login" element={<Login onLogin={handleLogin} isAuthenticated={isAuthenticated} />} />

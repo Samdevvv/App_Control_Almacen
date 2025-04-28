@@ -1,185 +1,260 @@
 .peticiones-container {
-    padding: 20px;
+  padding: 20px;
+}
+
+.peticiones-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.peticiones-header h1 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.peticiones-tools {
+  display: flex;
+  gap: 15px;
+}
+
+.peticiones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.peticion-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.peticion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.peticion-header {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.peticion-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.peticion-title h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.peticion-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 0.85rem;
+}
+
+.peticion-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px 20px;
+  background-color: #f8f9fa;
+}
+
+.peticion-detail {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.peticion-detail i {
+  margin-right: 8px;
+  color: #3498db;
+  width: 16px;
+  text-align: center;
+}
+
+.peticion-nota, .peticion-respuesta {
+  padding: 15px 20px;
+  border-top: 1px solid #ecf0f1;
+}
+
+.peticion-nota h4, .peticion-respuesta h4 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.peticion-nota p, .peticion-respuesta p {
+  margin: 0;
+  color: #7f8c8d;
+  font-size: 0.95rem;
+}
+
+.peticion-respuesta {
+  background-color: #edf2f7;
+}
+
+.peticion-respuesta small {
+  display: block;
+  margin-top: 10px;
+  color: #95a5a6;
+  font-size: 0.85rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-postponed {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-pending {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-completed {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.status-canceled {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+@media (max-width: 768px) {
+  .peticiones-container {
+    padding: 15px;
   }
   
   .peticiones-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-  }
-  
-  .peticiones-header h1 {
-    margin: 0;
-    color: #2c3e50;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
   }
   
   .peticiones-tools {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .peticiones-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .peticion-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .peticion-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    width: 100%;
   }
   
   .peticion-header {
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ecf0f1;
-  }
-  
-  .peticion-title {
-    display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 15px;
-  }
-  
-  .peticion-title h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #2c3e50;
   }
   
   .peticion-actions {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .btn-sm {
-    padding: 5px 10px;
-    font-size: 0.85rem;
+    width: 100%;
+    justify-content: space-between;
   }
   
   .peticion-details {
-    display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .peticiones-list {
     gap: 15px;
-    padding: 15px 20px;
-    background-color: #f8f9fa;
+  }
+}
+
+@media (max-width: 576px) {
+  .peticiones-container {
+    padding: 10px;
   }
   
-  .peticion-detail {
-    display: flex;
-    align-items: center;
-    font-size: 0.9rem;
-    color: #7f8c8d;
+  .peticiones-header h1 {
+    font-size: 1.5rem;
   }
   
-  .peticion-detail i {
-    margin-right: 8px;
-    color: #3498db;
-    width: 16px;
-    text-align: center;
+  .peticiones-list {
+    gap: 10px;
+  }
+  
+  .peticion-header {
+    padding: 12px 15px;
+  }
+  
+  .peticion-title h3 {
+    font-size: 1.1rem;
+  }
+  
+  .peticion-title {
+    gap: 10px;
+  }
+  
+  .peticion-details {
+    padding: 12px 15px;
   }
   
   .peticion-nota, .peticion-respuesta {
-    padding: 15px 20px;
-    border-top: 1px solid #ecf0f1;
+    padding: 12px 15px;
   }
   
   .peticion-nota h4, .peticion-respuesta h4 {
-    margin: 0 0 10px 0;
-    font-size: 1rem;
-    color: #2c3e50;
-  }
-  
-  .peticion-nota p, .peticion-respuesta p {
-    margin: 0;
-    color: #7f8c8d;
     font-size: 0.95rem;
   }
   
-  .peticion-respuesta {
-    background-color: #edf2f7;
+  .peticion-nota p, .peticion-respuesta p {
+    font-size: 0.9rem;
   }
   
-  .peticion-respuesta small {
-    display: block;
-    margin-top: 10px;
-    color: #95a5a6;
+  .peticion-actions {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  
+  .peticion-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .peticion-detail {
     font-size: 0.85rem;
   }
   
+  .peticion-respuesta small {
+    font-size: 0.8rem;
+  }
+  
   .status-badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 0.7rem;
+    padding: 3px 8px;
   }
-  
-  .status-approved {
-    background-color: #d4edda;
-    color: #155724;
-  }
-  
-  .status-rejected {
-    background-color: #f8d7da;
-    color: #721c24;
-  }
-  
-  .status-postponed {
-    background-color: #fff3cd;
-    color: #856404;
-  }
-  
-  .status-pending {
-    background-color: #d1ecf1;
-    color: #0c5460;
-  }
-  
-  .status-completed {
-    background-color: #e9ecef;
-    color: #495057;
-  }
-  
-  .status-canceled {
-    background-color: #e9ecef;
-    color: #495057;
-  }
-  
-  @media (max-width: 768px) {
-    .peticiones-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
-    }
-    
-    .peticiones-tools {
-      width: 100%;
-    }
-    
-    .peticion-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
-    }
-    
-    .peticion-actions {
-      width: 100%;
-      justify-content: space-between;
-    }
-    
-    .peticion-details {
-      flex-direction: column;
-      gap: 10px;
-    }
-  }
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import Modal from '../Common/Modal';
 import './Inventario.css';
+import '../../global.css'
 
 const InventarioTaller = ({ usuario }) => {
   const { id } = useParams();
