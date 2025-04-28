@@ -14,6 +14,9 @@ import AdministracionTaller from './componentes/Admin/AdministracionTaller';
 import GestionArticulos from './componentes/Admin/GestionArticulos';
 import GestionPeticiones from './componentes/Admin/GestionPeticiones';
 import NotFound from './componentes/Common/NotFound';
+import AdminDashboard from './componentes/Admin/AdminDashboard';
+
+
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -37,6 +40,14 @@ function App() {
     return children;
   };
 
+  // Proteger rutas específicas para admins
+  const AdminRoute = ({ children }) => {
+    if (!isAuthenticated || usuario.rol !== 'admin') {
+      return <Navigate to="/dashboard" />;
+    }
+    return children;
+  };
+
   const handleLogin = (userData) => {
     setUsuario(userData);
   };
@@ -55,7 +66,11 @@ function App() {
             
             <Route path="/dashboard" element={
               <ProtectedRoute>
-                <Dashboard usuario={usuario} />
+                {usuario && usuario.rol === 'admin' ? (
+                  <AdminDashboard usuario={usuario} />
+                ) : (
+                  <Dashboard usuario={usuario} />
+                )}
               </ProtectedRoute>
             } />
             

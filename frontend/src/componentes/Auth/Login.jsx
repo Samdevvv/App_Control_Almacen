@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import './Auth.css';
 
@@ -6,12 +6,11 @@ const Login = ({ onLogin, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    userType: 'estudiante' // Por defecto, estudiante
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Si ya está autenticado, redirigir al dashboard
+  // If already authenticated, redirect to dashboard
   if (isAuthenticated) {
     return <Navigate to="/dashboard" />;
   }
@@ -20,7 +19,7 @@ const Login = ({ onLogin, isAuthenticated }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -30,25 +29,47 @@ const Login = ({ onLogin, isAuthenticated }) => {
     setLoading(true);
 
     try {
-      // En producción, esto sería una llamada a la API de autenticación
-      // Por ahora simulamos una respuesta exitosa después de 1 segundo
-      setTimeout(() => {
-        // Datos simulados para desarrollo
-        const userData = {
+      // Simulated user database
+      const users = [
+        {
           id: 1,
-          nombre: formData.userType === 'estudiante' ? 'Estudiante Demo' : 'Profesor Demo',
-          email: formData.email,
-          rol: formData.userType,
-          // Si es maestro, asignamos un taller
-          ...(formData.userType === 'maestro' && { 
-            tallerAsignado: {
-              id: 1,
-              nombre: 'Taller de Electrónica'
-            }
-          })
-        };
+          nombre: 'Admin Demo',
+          email: 'admin@escuela.edu',
+          password: 'admin123',
+          rol: 'admin',
+        },
+        {
+          id: 2,
+          nombre: 'Profesor Demo',
+          email: 'profesor@escuela.edu',
+          password: 'profesor123',
+          rol: 'maestro',
+          tallerAsignado: {
+            id: 1,
+            nombre: 'Taller de Electrónica',
+          },
+        },
+        {
+          id: 3,
+          nombre: 'Estudiante Demo',
+          email: 'estudiante@escuela.edu',
+          password: 'estudiante123',
+          rol: 'estudiante',
+        },
+      ];
 
-        onLogin(userData);
+      // Find user
+      const user = users.find(
+        (u) => u.email === formData.email && u.password === formData.password
+      );
+
+      if (!user) {
+        throw new Error('Credenciales inválidas');
+      }
+
+      // Simulate API delay
+      setTimeout(() => {
+        onLogin(user);
         setLoading(false);
       }, 1000);
     } catch (err) {
@@ -89,33 +110,6 @@ const Login = ({ onLogin, isAuthenticated }) => {
               onChange={handleChange}
               required
             />
-          </div>
-          
-          <div className="form-group">
-            <label className="form-label">Tipo de Usuario</label>
-            <div className="user-type-selector">
-              <label className={`user-type-option ${formData.userType === 'estudiante' ? 'active' : ''}`}>
-                <input
-                  type="radio"
-                  name="userType"
-                  value="estudiante"
-                  checked={formData.userType === 'estudiante'}
-                  onChange={handleChange}
-                />
-                <span className="user-type-text">Estudiante</span>
-              </label>
-              
-              <label className={`user-type-option ${formData.userType === 'maestro' ? 'active' : ''}`}>
-                <input
-                  type="radio"
-                  name="userType"
-                  value="maestro"
-                  checked={formData.userType === 'maestro'}
-                  onChange={handleChange}
-                />
-                <span className="user-type-text">Maestro</span>
-              </label>
-            </div>
           </div>
           
           <button 
