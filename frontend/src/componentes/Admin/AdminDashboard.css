@@ -101,6 +101,13 @@
   padding: 0.5rem;
   border-radius: 4px;
   transition: background-color 0.2s, color 0.2s;
+  line-height: 1; /* Ensure icons align properly */
+}
+
+.btn-icon i {
+  font-family: 'Font Awesome 6 Free'; /* Ensure Font Awesome font is used */
+  font-weight: 900; /* Solid icons require this weight */
+  display: inline-block; /* Ensure the icon is not hidden */
 }
 
 .btn-icon.edit {

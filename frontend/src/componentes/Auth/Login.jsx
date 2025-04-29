@@ -81,6 +81,10 @@ const Login = ({ onLogin, isAuthenticated }) => {
   return (
     <div className="login-container">
       <div className="login-card">
+        <div className="logo-container">
+          <img src="src\assets\logoitesa.png" alt="Logo Sistema Inventario" className="login-logo" />
+        </div>
+        
         <h2 className="login-title">Sistema de Administración de Almacén</h2>
         
         {error && <div className="alert alert-danger">{error}</div>}
@@ -88,28 +92,34 @@ const Login = ({ onLogin, isAuthenticated }) => {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label">Correo Electrónico</label>
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              placeholder="tu@correo.com"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
+            <div className="input-with-icon">
+              <i className="fas fa-envelope"></i>
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="tu@correo.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
           
           <div className="form-group">
             <label className="form-label">Contraseña</label>
-            <input
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="**********"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <div className="input-with-icon">
+              <i className="fas fa-lock"></i>
+              <input
+                type="password"
+                name="password"
+                className="form-control"
+                placeholder="**********"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
           
           <button 
@@ -123,6 +133,15 @@ const Login = ({ onLogin, isAuthenticated }) => {
         
         <div className="login-footer">
           <p>¿Olvidaste tu contraseña? Contacta al administrador del sistema.</p>
+        </div>
+        
+        <div className="credentials-demo">
+          <p className="credentials-title">Credenciales de prueba:</p>
+          <ul className="credentials-list">
+            <li><strong>Admin:</strong> admin@escuela.edu / admin123</li>
+            <li><strong>Profesor:</strong> profesor@escuela.edu / profesor123</li>
+            <li><strong>Estudiante:</strong> estudiante@escuela.edu / estudiante123</li>
+          </ul>
         </div>
       </div>
     </div>

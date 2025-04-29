@@ -14,6 +14,7 @@ const GestionArticulos = ({ usuario }) => {
   const [filtroCategoria, setFiltroCategoria] = useState('');
   const [filtroDisponibilidad, setFiltroDisponibilidad] = useState('');
   const [busqueda, setBusqueda] = useState('');
+  const [vistaActual, setVistaActual] = useState('tarjetas'); // 'tarjetas' o 'tabla'
   const [articuloForm, setArticuloForm] = useState({
     nombre: '',
     descripcion: '',
@@ -236,6 +237,10 @@ const GestionArticulos = ({ usuario }) => {
     setShowModal(false);
   };
   
+  const toggleVista = () => {
+    setVistaActual(vistaActual === 'tarjetas' ? 'tabla' : 'tarjetas');
+  };
+  
   if (loading) {
     return (
       <div className="loader-container">
@@ -253,9 +258,18 @@ const GestionArticulos = ({ usuario }) => {
             <i className="fas fa-arrow-left"></i> Volver a Administración
           </Link>
         </div>
-        <button className="btn btn-primary" onClick={handleAddClick}>
-          <i className="fas fa-plus"></i> Añadir Artículo
-        </button>
+        <div className="admin-actions">
+          <button className="btn btn-outline btn-view-toggle" onClick={toggleVista}>
+            {vistaActual === 'tarjetas' ? (
+              <><i className="fas fa-table"></i> Vista de Tabla</>
+            ) : (
+              <><i className="fas fa-th-large"></i> Vista de Tarjetas</>
+            )}
+          </button>
+          <button className="btn btn-primary" onClick={handleAddClick}>
+            <i className="fas fa-plus"></i> Añadir Artículo
+          </button>
+        </div>
       </div>
       
       <div className="filter-bar">
@@ -302,6 +316,46 @@ const GestionArticulos = ({ usuario }) => {
         <div className="no-results">
           <i className="fas fa-search no-results-icon"></i>
           <p>No se encontraron artículos que coincidan con tu búsqueda.</p>
+        </div>
+      ) : vistaActual === 'tarjetas' ? (
+        <div className="articulos-grid">
+          {articulosFiltrados.map((articulo) => (
+            <div key={articulo.id} className="articulo-card">
+              <div className="articulo-card-header">
+                <div className="articulo-card-category">{articulo.categoria}</div>
+                <div className={`articulo-status ${articulo.disponible ? 'disponible' : 'no-disponible'}`}>
+                  {articulo.disponible ? 'Disponible' : 'No disponible'}
+                </div>
+              </div>
+              <div className="articulo-card-body">
+                <h3 className="articulo-card-title">{articulo.nombre}</h3>
+                <p className="articulo-card-description">{articulo.descripcion}</p>
+                <div className="articulo-card-details">
+                  <div className="articulo-card-quantity">
+                    <i className="fas fa-box"></i> Cantidad: <span className="quantity-value">{articulo.cantidad}</span>
+                  </div>
+                  <div className="articulo-card-specs">
+                    {articulo.especificaciones.slice(0, 2).map((spec, index) => (
+                      <div key={index} className="spec-item">
+                        <span className="spec-name">{spec.nombre}:</span> {spec.valor}
+                      </div>
+                    ))}
+                    {articulo.especificaciones.length > 2 && (
+                      <div className="spec-more">+{articulo.especificaciones.length - 2} más</div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="articulo-card-actions">
+                <button className="btn-icon" onClick={() => handleEditClick(articulo)}>
+                  <i className="fas fa-edit"></i> Editar
+                </button>
+                <button className="btn-icon delete" onClick={() => handleDeleteClick(articulo.id)}>
+                  <i className="fas fa-trash-alt"></i> Eliminar
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <div className="admin-table-container">

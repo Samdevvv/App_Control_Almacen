@@ -1,83 +1,186 @@
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #7f8c8d 0%, #2c3e50 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2c3e50 0%, #4a69bd 100%);
+  padding: 20px;
+}
+
+.login-card {
+  width: 400px;
+  max-width: 90%;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Logo */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.login-logo {
+  max-width: 120px;
+  height: auto;
+}
+
+/* Para simular un logo si no hay imagen */
+.login-logo-placeholder {
+  width: 120px;
+  height: 120px;
+  background-color: #3498db;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0 auto;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-size: 1.7rem;
+  font-weight: 600;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eee;
+}
+
+/* Alerta de error */
+.alert {
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+/* Formulario */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7f8c8d;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Botón */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #2980b9;
+}
+
+.login-btn:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* Footer */
+.login-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+/* Credenciales de demostración */
+.credentials-demo {
+  margin-top: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 15px;
+  font-size: 0.85rem;
+}
+
+.credentials-title {
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.credentials-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.credentials-list li {
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.credentials-list li:last-child {
+  margin-bottom: 0;
+}
+
+.credentials-list strong {
+  color: #333;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .login-card {
     padding: 20px;
   }
   
-  .login-card {
-    width: 400px;
-    max-width: 90%;
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  }
-  
   .login-title {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #2c3e50;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
-  
-  .login-btn {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    font-size: 1rem;
-  }
-  
-  .login-footer {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #7f8c8d;
-  }
-  
-  .user-type-selector {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-  
-  .user-type-option {
-    flex: 1;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 4px;
-    margin: 0 5px;
-  }
-  
-  .user-type-option:first-child {
-    margin-left: 0;
-  }
-  
-  .user-type-option:last-child {
-    margin-right: 0;
-  }
-  
-  .user-type-option input {
-    display: none;
-  }
-  
-  .user-type-option.active {
-    background-color: #3498db;
-    color: white;
-    border-color: #2980b9;
-  }
-  
-  .user-type-text {
-    font-weight: 500;
-  }
-  
-  @media (max-width: 600px) {
-    .login-card {
-      width: 100%;
-    }
-  }
+}

@@ -1,6 +1,4 @@
-/* ResponsiveStyles.css - Solución para problemas de desbordamiento y responsividad */
-
-/* Reset global para asegurar que ningún elemento cause desbordamiento */
+@import '@fortawesome/fontawesome-free/css/all.min.css';
 * {
     margin: 0;
     padding: 0;
