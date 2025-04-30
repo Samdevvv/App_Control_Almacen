@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import './Auth.css';
 
+
+import logoItesa from '../../assets/logoitesa.png';
+
 const Login = ({ onLogin, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -106,7 +109,7 @@ const Login = ({ onLogin, isAuthenticated }) => {
                   <i className="fas fa-boxes"></i>
                 </div>
                 <h2 className="logo-title">ITESA</h2>
-                <p className="logo-subtitle">Administraciòn De Almacen Por Talleres</p>
+                <p className="logo-subtitle">Administración De Almacén Por Talleres</p>
               </div>
               
               <div className="animated-elements">
@@ -119,6 +122,11 @@ const Login = ({ onLogin, isAuthenticated }) => {
           </div>
           
           <div className="login-card-side form-side">
+            {/* Logo añadido encima del título */}
+            <div className="form-logo">
+              <img src={logoItesa} alt="ITESA Logo" />
+            </div>
+            
             <h3 className="form-title">Iniciar Sesión</h3>
             
             {error && (
@@ -182,7 +190,7 @@ const Login = ({ onLogin, isAuthenticated }) => {
             </form>
             
             <div className="form-footer">
-              <a href="#" className="forgot-password">¿Olvidaste tu contraseña?</a>
+              <a href="#" className="forgot-password">¿Olvidaste tu contraseña? <br /> Contacte con el <i>Administrador</i> asignado </a>
             </div>
           </div>
         </div>

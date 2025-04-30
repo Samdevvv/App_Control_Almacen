@@ -1,19 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Variables de colores */
+/* Variables de colores - cambiados a rojo, blanco y beige */
 :root {
-  --primary-color: #4361ee;
-  --primary-light: #4895ef;
-  --primary-dark: #3a0ca3;
-  --secondary-color: #4cc9f0;
-  --accent-color: #7209b7;
-  --dark-color: #212529;
-  --light-color: #f8f9fa;
-  --error-color: #e5383b;
-  --success-color: #38b000;
-  --gray-color: #6c757d;
-  --card-bg: rgba(255, 255, 255, 0.9);
-  --shadow-color: rgba(0, 0, 0, 0.15);
+  --primary-color: #d62828;       /* Rojo primario */
+  --primary-light: #f94144;       /* Rojo más claro */
+  --primary-dark: #9d0208;        /* Rojo más oscuro */
+  --secondary-color: #e85d04;     /* Naranja-rojo */
+  --accent-color: #bc4749;        /* Rojo acento */
+  --dark-color: #4a4e69;          /* Gris oscuro */
+  --light-color: #ffffff;         /* Blanco */
+  --error-color: #e5383b;         /* Rojo error */
+  --success-color: #38b000;       /* Verde éxito (sin cambios) */
+  --gray-color: #6c757d;          /* Gris (sin cambios) */
+  --card-bg: rgba(255, 255, 255, 0.95); /* Fondo de tarjeta */
+  --shadow-color: rgba(0, 0, 0, 0.15);  /* Sombra (sin cambios) */
+  --beige-color: #f5f5dc;         /* Beige */
+  --beige-light: #f8f4e3;         /* Beige claro */
   --animation-time: 0.8s;
 }
 
@@ -37,7 +39,7 @@ body {
   position: relative;
   overflow: hidden;
   padding: 20px;
-  background-color: #f0f2f5;
+  background-color: var(--beige-light);
 }
 
 /* Fondo animado */
@@ -282,6 +284,16 @@ body {
   animation-delay: 0.3s;
 }
 
+.form-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-logo img {
+  max-width: 120px;
+  height: auto;
+}
+
 .form-title {
   text-align: center;
   font-size: 1.8rem;
@@ -403,7 +415,7 @@ body {
   transition: all 0.3s;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+  box-shadow: 0 5px 15px rgba(214, 40, 40, 0.3);
   margin-top: 10px;
 }
 
@@ -418,7 +430,7 @@ body {
 
 .login-button:hover {
   background: linear-gradient(45deg, var(--primary-dark), var(--primary-color));
-  box-shadow: 0 7px 20px rgba(67, 97, 238, 0.4);
+  box-shadow: 0 7px 20px rgba(214, 40, 40, 0.4);
   transform: translateY(-2px);
 }
 
@@ -432,7 +444,7 @@ body {
 
 .login-button:active {
   transform: translateY(1px);
-  box-shadow: 0 3px 10px rgba(67, 97, 238, 0.3);
+  box-shadow: 0 3px 10px rgba(214, 40, 40, 0.3);
 }
 
 /* Spinner de carga */
@@ -564,6 +576,10 @@ body {
   .logo-title {
     font-size: 2rem;
   }
+  
+  .form-logo img {
+    max-width: 100px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -581,5 +597,9 @@ body {
   
   .form-title {
     font-size: 1.5rem;
+  }
+  
+  .form-logo img {
+    max-width: 80px;
   }
 }

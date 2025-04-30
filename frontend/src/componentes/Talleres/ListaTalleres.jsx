@@ -7,8 +7,14 @@ const ListaTalleres = () => {
   const [talleres, setTalleres] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busqueda, setBusqueda] = useState('');
+  const [appear, setAppear] = useState(false);
   
   useEffect(() => {
+    // Animación de aparición
+    setTimeout(() => {
+      setAppear(true);
+    }, 100);
+    
     // Simulación de carga de datos - en producción esto sería una llamada a la API
     setTimeout(() => {
       // Datos simulados para desarrollo
@@ -121,11 +127,15 @@ const ListaTalleres = () => {
         </div>
       ) : (
         <div className="talleres-grid">
-          {talleresFiltrados.map((taller) => (
-            <div key={taller.id} className="taller-card-large">
+          {talleresFiltrados.map((taller, index) => (
+            <div 
+              key={taller.id} 
+              className="taller-card-large"
+              style={{"--animation-delay": index}}
+            >
               <div className="taller-image-large" style={{ backgroundColor: getTallerColor(taller.id) }}>
                 <div className="taller-overlay-large">
-                  <span>{taller.totalArticulos} artículos</span>
+                  <span><i className="fas fa-box-open"></i> {taller.totalArticulos} artículos</span>
                 </div>
               </div>
               <div className="taller-info-large">
@@ -148,7 +158,8 @@ const ListaTalleres = () => {
                 </div>
                 
                 <Link to={`/taller/${taller.id}`} className="btn btn-primary taller-btn">
-                  Ver Inventario
+                  <span>Ver Inventario</span>
+                  <i className="fas fa-arrow-right"></i>
                 </Link>
               </div>
             </div>
@@ -159,9 +170,16 @@ const ListaTalleres = () => {
   );
 };
 
-// Función para asignar colores a los talleres
+// Función para asignar colores a los talleres con nueva paleta de colores
 const getTallerColor = (id) => {
-  const colors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c'];
+  const colors = [
+    '#d62828', // Rojo principal
+    '#9d0208', // Rojo oscuro
+    '#e85d04', // Naranja-rojo
+    '#bc4749', // Rojo acento
+    '#f94144', // Rojo más claro
+    '#9d0208'  // Rojo oscuro (repetido para el 6º elemento)
+  ];
   return colors[(id - 1) % colors.length];
 };
 
